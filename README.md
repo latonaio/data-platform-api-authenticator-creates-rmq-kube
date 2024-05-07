@@ -1,1 +1,56 @@
 # data-platform-api-authenticator-creates-rmq-kube
+data-platform-api-authenticator-creates-rmq-kube は、周辺システム　を データ連携基盤 と統合することを目的に、API でユーザ・認証データを登録するマイクロサービスです。
+
+* https://xxx.xxx.io/api/API_AUTHENTICATOR_SRV/creates/
+
+## 動作環境
+data-platform-api-authenticator-creates-rmq-kube の動作環境は、次の通りです。  
+・ OS: LinuxOS （必須）  
+・ CPU: ARM/AMD/Intel（いずれか必須）  
+
+## 本レポジトリ が 対応する API サービス
+data-platform-api-authenticator-creates-rmq-kube が対応する APIサービス は、次のものです。
+
+* APIサービス URL: https://xxx.xxx.io/api/API_AUTHENTICATOR_SRV/creates/
+
+## 本レポジトリ に 含まれる API名
+data-platform-api-authenticator-creates-rmq-kube には、次の API をコールするためのリソースが含まれています。  
+
+* A_User（ユーザ・認証 - ユーザ）
+* A_SMSAuth（ユーザ・認証 - SMS認証）
+* A_GoogleAccountAuth（ユーザ・認証 - Googleアカウント認証）
+* A_InstagramAuth（ユーザ・認証 - Instagram認証）
+
+## API への 値入力条件 の 初期値
+data-platform-api-authenticator-creates-rmq-kube において、API への値入力条件の初期値は、入力ファイルレイアウトの種別毎に、次の通りとなっています。  
+
+## データ連携基盤のAPIの選択的コール
+Latona および AION の データ連携基盤 関連リソースでは、Inputs フォルダ下の sample.json の accepter に登録したいデータの種別（＝APIの種別）を入力し、指定することができます。  
+なお、同 accepter にAll(もしくは空白)の値を入力することで、全データ（＝全APIの種別）をまとめて登録することができます。  
+
+* sample.jsonの記載例(1)  
+
+accepter において 下記の例のように、データの種別（＝APIの種別）を指定します。  
+ここでは、"User" が指定されています。    
+  
+```
+	"api_schema": "DPFMAuthenticatorCreates",
+	"accepter": ["User"],
+```
+  
+* 全データを取得する際のsample.jsonの記載例(2)  
+
+全データを取得する場合、sample.json は以下のように記載します。  
+
+```
+	"api_schema": "DPFMAuthenticatorCreates",
+	"accepter": ["All"],
+```
+
+## Output  
+本マイクロサービスでは、[golang-logging-library-for-data-platform](https://github.com/latonaio/golang-logging-library-for-data-platform) により、以下のようなデータがJSON形式で出力されます。  
+以下の sample.json の例は ユーザ・認証 の ユーザデータ が登録された結果の JSON の例です。  
+以下の項目のうち、"UserID" ～ "IsMarkedForDeletion" は、/DPFM_API_Output_Formatter/type.go 内 の Type User {} による出力結果です。"cursor" ～ "time"は、golang-logging-library による 定型フォーマットの出力結果です。  
+
+```
+```
